@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <title>愛樂有螢光棒</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <style>
         body {
             animation: blinker 1s steps(1, end) infinite;
-            /*background: #DDD;*/
         }
 
         @keyframes blinker {
@@ -32,7 +33,7 @@
         // console.log(res)
         document.body.style.backgroundColor = 'rgb(' + res.r + ',' + res.g + ',' + res.b + ')';
         if (res.s <= 55) {
-            document.body.style.animationDuration = ('0s'); // Change here
+            document.body.style.animationDuration = ('0s');
         } else {
             let time = ((200 - ((res.s) - 55)) - 0.05) * 0.45 / 200 + 0.05
             document.body.style.animationDuration = time + 's'; // Change here
@@ -43,7 +44,7 @@
 
     }
 
-
+    document.body.requestFullscreen
 </script>
 
 <body id="back" style="background-color: #000000">
