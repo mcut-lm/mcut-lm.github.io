@@ -20,29 +20,30 @@
     </style>
 </head>
 <script>
-
+function connect() {
     let url = 'ws://light.henrywu.tw:3000'
     var ws = new WebSocket(url)
     ws.onopen = () => {
     }
     ws.onclose = () => {
+        setTimeout(function() {connect();}, 1000);
     }
     ws.onmessage = event => {
-
         let res = JSON.parse(event.data);
         // console.log(res)
-        document.body.style.backgroundColor = 'rgb(' + res.r + ',' + res.g + ',' + res.b + ')';
+        if(res.r && res.g && res.b) {
+            document.body.style.backgroundColor = 'rgb(' + res.r + ',' + res.g + ',' + res.b + ')';
+        }
+        
         if (res.s <= 55) {
             document.body.style.animationDuration = ('0s');
         } else {
             let time = ((200 - ((res.s) - 55)) - 0.05) * 0.45 / 200 + 0.05
             document.body.style.animationDuration = time + 's'; // Change here
         }
-
-
-        //console.log(event)
-
     }
+}
+connect();
 </script>
 
 <body id="back" style="background: #000">
