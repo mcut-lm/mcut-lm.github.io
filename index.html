@@ -46,7 +46,7 @@ function connect() {
 		
 		if(res.m) {
 			document.getElementById('message').innerHTML = res.m;
-		}
+		} else document.getElementById('message').innerHTML = '';
 		
 		if(res.r && res.g && res.b) {
 			document.body.style.backgroundColor = 'rgb(' + res.r + ',' + res.g + ',' + res.b + ')';
