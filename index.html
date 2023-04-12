@@ -40,7 +40,7 @@ function connect() {
 		// console.log(res)
 		
 		if(res.m) {
-			document.body.innerHTML = res.m;
+			document.getElementById('message').innerHTML = res.m;
 		}
 		
 		if(res.r && res.g && res.b) {
@@ -59,6 +59,7 @@ connect();
 </script>
 
 <body id="back" style="background: #000">
+	<div id="message"></div>
 	<footer style="
 	background: rgba(0,0,0,.5);
 	color: #FFF;
