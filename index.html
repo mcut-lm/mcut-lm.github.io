@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>light</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=0">
     <style>
         body {
             animation: blinker 1s steps(1, end) infinite;
@@ -19,7 +20,7 @@
 </head>
 <script>
 
-    let url = 'wss://light.henrywu.tw:3000'
+    let url = 'ws://light.henrywu.tw:3000'
     var ws = new WebSocket(url)
     ws.onopen = () => {
     }
@@ -28,6 +29,7 @@
     ws.onmessage = event => {
 
         let res = JSON.parse(event.data);
+        // console.log(res)
         document.body.style.backgroundColor = 'rgb(' + res.r + ',' + res.g + ',' + res.b + ')';
         if (res.s <= 55) {
             document.body.style.animationDuration = ('0s'); // Change here
@@ -45,7 +47,18 @@
 </script>
 
 <body id="back" style="background-color: #000000">
-
+    <footer style="
+        background: #000;
+        color: #FFF;
+        text-align: center;
+        position: fixed;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        padding: 5px 0;
+        font-family: sans-serif;
+        font-size: 12px;
+    ">Made by Lyuchan and Henry Wu<br>Powered by MCUT Bot</footer>
 </body>
 
 </html>
