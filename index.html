@@ -19,12 +19,7 @@
 </head>
 <script>
 
-    let url = window.location.href//取得當前網址
-    url = url.replace("https://", "");//去除https
-    url = url.replace("http://", "");//去除http
-    url = url.replace("webtally", "");//去除/
-    url = url.replace("/", "");//去除/
-    url = "ws://" + url;//加入ws://
+    let url = 'ws://light.henrywu.tw:3000'
     var ws = new WebSocket(url)
     ws.onopen = () => {
     }
