@@ -69,7 +69,7 @@ function connect() {
 			document.getElementById('message').innerHTML = res.m;
 		} else document.getElementById('message').innerHTML = '';
 		
-		if(res.r && res.g && res.b) {
+		if(res.r!=undefined && res.g!=undefined && res.b!=undefined) {
 			document.body.style.backgroundColor = 'rgb(' + res.r + ',' + res.g + ',' + res.b + ')';
 		}
 
