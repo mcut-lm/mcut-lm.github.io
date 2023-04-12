@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>light</title>
+    <style>
+        body {
+            animation: blinker 1s steps(1, end) infinite;
+            /*background: #DDD;*/
+        }
+
+        @keyframes blinker {
+            50% {
+                background: #000
+            }
+        }
+    </style>
+</head>
+<script>
+
+    let url = window.location.href//取得當前網址
+    url = url.replace("https://", "");//去除https
+    url = url.replace("http://", "");//去除http
+    url = url.replace("webtally", "");//去除/
+    url = url.replace("/", "");//去除/
+    url = "ws://" + url;//加入ws://
+    var ws = new WebSocket(url)
+    ws.onopen = () => {
+    }
+    ws.onclose = () => {
+    }
+    ws.onmessage = event => {
+
+        let res = JSON.parse(event.data);
+        document.body.style.backgroundColor = 'rgb(' + res.r + ',' + res.g + ',' + res.b + ')';
+        if (res.s <= 55) {
+            document.body.style.animationDuration = ('0s'); // Change here
+        } else {
+            let time = ((200 - ((res.s) - 55)) - 0.05) * 0.45 / 200 + 0.05
+            document.body.style.animationDuration = time + 's'; // Change here
+        }
+
+
+        //console.log(event)
+
+    }
+
+
+</script>
+
+<body id="back" style="background-color: #000000">
+
+</body>
+
+</html>
