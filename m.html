@@ -62,8 +62,8 @@ function connect() {
 	}
 	ws.onmessage = event => {
 		document.getElementById('message').innerHTML = '';
-		document.getElementById('json').innerHTML = event.data;
 		let res = JSON.parse(event.data);
+		document.getElementById('json').innerHTML = res.u || 0;
 		// console.log(res)
 		
 		if(res.m) {
