@@ -50,25 +50,23 @@
 	</style>
 </head>
 <script>
+var last_u = 0;
+var log_u = [];
+var max_u = 0;
 function connect() {
 	let url = 'ws://light.henrywu.tw:3000'
 	var ws = new WebSocket(url)
+	
 	ws.onopen = () => {
-		document.getElementById('message').innerHTML = '';
 	}
 	ws.onclose = () => {
-		document.getElementById('message').innerHTML = '重新連線中';
 		setTimeout(function() {connect();}, 1000);
 	}
 	ws.onmessage = event => {
-		document.getElementById('message').innerHTML = '';
 		let res = JSON.parse(event.data);
 		document.getElementById('json').innerHTML = res.u || 0;
+		last_u = res.u || 0;
 		// console.log(res)
-		
-		if(res.m) {
-			document.getElementById('message').innerHTML = res.m;
-		} else document.getElementById('message').innerHTML = '';
 		
 		if(res.r!=undefined && res.g!=undefined && res.b!=undefined) {
 			document.body.style.backgroundColor = 'rgb(' + res.r + ',' + res.g + ',' + res.b + ')';
@@ -81,15 +79,42 @@ function connect() {
 			document.body.style.animationDuration = time + 's'; // Change here
 		}
 	}
-}	
-connect();
+}
+document.addEventListener("DOMContentLoaded", () => {
+	connect();
+	setInterval(function(){
+		log_u.push(last_u);
+		if(log_u.length > 100) log_u.shift();
+		if(last_u > max_u) max_u = last_u;
+		console.log(log_u);
+		for (var i = 0; i < 100; i++) {
+			document.getElementById('b-'+i).style.height = ((log_u[i]/max_u*100)||0)+'vh';
+			document.getElementById('b-'+i).style.marginTop = (((max_u-log_u[i])/max_u*100)||0)+'vh';
+			document.getElementById('b-'+i).innerHTML = log_u[i] || '';
+		}
+	},1000);
+	for (var i = 0; i < 100; i++) {
+		document.getElementById('bar').innerHTML = document.getElementById('bar').innerHTML + '<div class="bar" id="b-'+i+'"></div>';
+	}
+});
 </script>
+<style>
+	body {
+		margin:  0;
+	}
 
+	.bar {
+		float: left;
+		display: block;
+		width: 1vw;
+		background: rgba(255,255,255,.4);
+		color: #000;
+	}
+</style>
 <body id="back" style="background: #000">
-	<div id="status"></div>
-  <div id="json"></div>
-	<div id="message"></div>
-	<footer>Made by Lyuchan and Henry Wu<br>Powered by MCUT Bot</footer>
+	<div id="status" style="display:none"></div>
+	<div id="json" style="display:none"></div>
+	<div id="bar"></div>
 </body>
 
 </html>
