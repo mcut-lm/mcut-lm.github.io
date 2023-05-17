@@ -48,7 +48,7 @@
 		}
 		
 		img {
-			animation: blur 1s steps(1, end) infinite;
+			animation: bpm 1s steps(1, end) infinite;
 		}
 		
 		@keyframes bpm {
@@ -83,9 +83,9 @@ function connect() {
 		}
 		
 		if (res.bpm <= 30) {
-			document.body.style.animationDuration = ('0s');
+			document.getElementById('logo').style.animationDuration = ('0s');
 		} else {
-			document.body.style.animationDuration = (res.bpm/60) + 's'; // Change here
+			document.getElementById('logo').style.animationDuration = (res.bpm/60) + 's'; // Change here
 		}
 	}
 }	
@@ -93,7 +93,7 @@ connect();
 </script>
 
 <body id="back" style="background: #000">
-	<img src="edm.svg" style="width:80vh"/>
+	<img id="logo" src="edm.svg" style="width:80vh"/>
 </body>
 
 </html>
