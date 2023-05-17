@@ -47,14 +47,21 @@
 			}
 		}
 		
-		img {
+		img#blur {
 			animation: bpm 1s steps(1, end) infinite;
+			opacity: .5
 		}
 		
 		@keyframes bpm {
 			50% {
 				filter: blur(5px);
 			}
+		}
+		
+		.logo {
+			width: 80vh;
+			position: fixed;
+			top: 10vh
 		}
 	</style>
 </head>
@@ -91,13 +98,6 @@ function connect() {
 }	
 connect();
 </script>
-<style>
-	.logo {
-		width: 80vh;
-		position: fixed;
-		top: 10vh
-	}
-</style>
 <body id="back" style="background: #000">
 	<img id="blur" src="edm.svg" class="logo"/>
 	<img src="edm.svg" class="logo"/>
