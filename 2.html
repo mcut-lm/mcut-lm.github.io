@@ -46,6 +46,16 @@
 				background: #000
 			}
 		}
+		
+		img {
+			animation: blur 1s steps(1, end) infinite;
+		}
+		
+		@keyframes bpm {
+			50% {
+				filter: blur(5px);
+			}
+		}
 	</style>
 </head>
 <script>
@@ -70,6 +80,12 @@ function connect() {
 		} else {
 			let time = ((200 - ((res.s) - 55)) - 0.05) * 0.45 / 200 + 0.05
 			document.body.style.animationDuration = time + 's'; // Change here
+		}
+		
+		if (res.bpm <= 30) {
+			document.body.style.animationDuration = ('0s');
+		} else {
+			document.body.style.animationDuration = (res.bpm/60) + 's'; // Change here
 		}
 	}
 }	
