@@ -83,17 +83,24 @@ function connect() {
 		}
 		
 		if (res.bpm <= 30) {
-			document.getElementById('logo').style.animationDuration = ('0s');
+			document.getElementById('blur').style.animationDuration = ('0s');
 		} else {
-			document.getElementById('logo').style.animationDuration = (60/res.bpm) + 's'; // Change here
+			document.getElementById('blur').style.animationDuration = (60/res.bpm) + 's'; // Change here
 		}
 	}
 }	
 connect();
 </script>
-
+<style>
+	.logo {
+		width: 80vh;
+		position: fixed;
+		top: 10vh
+	}
+</style>
 <body id="back" style="background: #000">
-	<img id="logo" src="edm.svg" style="width:80vh"/>
+	<img id="blur" src="edm.svg" class="logo"/>
+	<img src="edm.svg" class="logo"/>
 </body>
 
 </html>
