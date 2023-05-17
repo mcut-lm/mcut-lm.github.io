@@ -85,7 +85,7 @@ function connect() {
 		if (res.bpm <= 30) {
 			document.getElementById('logo').style.animationDuration = ('0s');
 		} else {
-			document.getElementById('logo').style.animationDuration = (res.bpm/60) + 's'; // Change here
+			document.getElementById('logo').style.animationDuration = (60/res.bpm) + 's'; // Change here
 		}
 	}
 }	
