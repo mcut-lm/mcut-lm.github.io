@@ -54,20 +54,13 @@ function connect() {
 	let url = 'ws://light.henrywu.tw:3000'
 	var ws = new WebSocket(url)
 	ws.onopen = () => {
-		document.getElementById('message').innerHTML = '';
 	}
 	ws.onclose = () => {
-		document.getElementById('message').innerHTML = '重新連線中';
 		setTimeout(function() {connect();}, 1000);
 	}
 	ws.onmessage = event => {
-		document.getElementById('message').innerHTML = '';
 		let res = JSON.parse(event.data);
 		// console.log(res)
-		
-		if(res.m) {
-			document.getElementById('message').innerHTML = res.m;
-		} else document.getElementById('message').innerHTML = '';
 		
 		if(res.r!=undefined && res.g!=undefined && res.b!=undefined) {
 			document.body.style.backgroundColor = 'rgb(' + res.r + ',' + res.g + ',' + res.b + ')';
