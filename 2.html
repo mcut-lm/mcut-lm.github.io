@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>電音社</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1.0, user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<style>
+		body {
+			animation: blinker 1s steps(1, end) infinite;
+			background: rgb(0, 0, 0);
+			animation-duration: 0s;
+			color: #FFF;
+			text-align: center;
+			margin-top: 48vh;
+			font-size: 18px;
+			font-family: sans-serif;
+		}
+		
+		a {
+			color: #FFF;
+			font-weight: 500
+		}
+		
+		footer {
+			background: rgba(0,0,0,.5);
+			color: #FFF;
+			text-align: center;
+			position: fixed;
+			width: 100%;
+			left: 0;
+			bottom: 0;
+			padding: 5px 0;
+			font-size: 12px;
+		}
+		
+		#status {
+			text-align: right;
+			width: 100%;
+			font-size: 10px;
+		}
+		
+		@keyframes blinker {
+			50% {
+				background: #000
+			}
+		}
+	</style>
+</head>
+<script>
+function connect() {
+	let url = 'ws://light.henrywu.tw:3000'
+	var ws = new WebSocket(url)
+	ws.onopen = () => {
+		document.getElementById('message').innerHTML = '';
+	}
+	ws.onclose = () => {
+		document.getElementById('message').innerHTML = '重新連線中';
+		setTimeout(function() {connect();}, 1000);
+	}
+	ws.onmessage = event => {
+		document.getElementById('message').innerHTML = '';
+		let res = JSON.parse(event.data);
+		// console.log(res)
+		
+		if(res.m) {
+			document.getElementById('message').innerHTML = res.m;
+		} else document.getElementById('message').innerHTML = '';
+		
+		if(res.r!=undefined && res.g!=undefined && res.b!=undefined) {
+			document.body.style.backgroundColor = 'rgb(' + res.r + ',' + res.g + ',' + res.b + ')';
+		}
+
+		if (res.s <= 55) {
+			document.body.style.animationDuration = ('0s');
+		} else {
+			let time = ((200 - ((res.s) - 55)) - 0.05) * 0.45 / 200 + 0.05
+			document.body.style.animationDuration = time + 's'; // Change here
+		}
+	}
+}	
+connect();
+</script>
+
+<body id="back" style="background: #000">
+	<img src="edm.svg"/>
+</body>
+
+</html>
